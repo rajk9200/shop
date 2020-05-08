@@ -6,12 +6,20 @@ def home(request):
 
     return render(request, 'home.html')
 
+
+def details_view(request,name=None):
+    p =Product.objects.get(name=name)
+    data ={
+      'pro':p
+    }
+    return render(request, 'page/details.html',data)
+
 # def checkout(request):
 #     return render(request, 'checkout.html')
 
 def allProduct(request):
     data=dict()
-    p =Product.objects.filter(active=True)
+    p =Product.objects.filter(active=True).order_by('-id')
     data['pro'] = p
 
     if request.is_ajax():
@@ -22,11 +30,11 @@ def allProduct(request):
         if not cot_id1 ==0:
             print(cot_id1)
             pro_obj =ProCot.objects.get(id=cot_id1)
-            p3 =Product.objects.filter(cat=pro_obj)
+            p3 =Product.objects.filter(cat=pro_obj).order_by('-id')
             data['pro'] = p3
 
         if searchpro:
-            p1 =Product.objects.filter(active=True,name__icontains=searchpro)
+            p1 =Product.objects.filter(active=True,name__icontains=searchpro).order_by('-id')
             data['pro'] = p1
 
 

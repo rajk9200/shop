@@ -1,0 +1,43 @@
+{% extends 'include/main.html'%}
+{% block tilte%}Home {% endblock%}
+
+{% block body%}
+{% load static %}
+{% include 'page/header.html'%}
+
+
+<div class="container">
+    <div class="row mt-4">
+        <div class="col-md-9">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="img-div1"> <img class="card-img-top" src="{{pro.image.url}}" alt="{{pro.image.url}}" width="100%"></div>
+
+                </div>
+
+                <div class="col-md-8">
+                    <div class="card bg-white">
+                    <div class="card-body">
+                        <div class="card-title">{{pro.name}} </div>
+                        <div class="pro-price"> Rs.{{pro.price}}/ </div>
+                        <div class="pro-price"> Rs.{{pro.desc}}/ </div>
+                        <div class="pro-date"> {{pro.date}} </div><br>
+                        <a href="#Cart" class="btn btn-info" >Add to Cart</a>
+                        <a href="#buy" class="btn btn-primary">Buy No</a>
+                    </div>
+                </div>
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+    <div class="col-md-3">
+
+        right
+    </div>
+</div>
+</div>
+{% endblock%}
