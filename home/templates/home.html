@@ -1,0 +1,221 @@
+{% extends 'include/main.html'%}
+{% block tilte%}Home {% endblock%}
+
+{% block body%}
+{% load static %}
+
+<header class="bg-light">
+    <div class="container">
+        <nav class="navbar navbar-expand-md navbar-light ">
+            <a href="#" class="navbar-brand text-primary">Apna Rewa Apna Bazar</a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+
+                <div class="navbar-nav ml-auto">
+                    <a class="nav-item btn btn-primary ">
+                        <span id="showlistbtn" class="text-white" onclick="CartHide()">Cart <i
+                                class="fas fa-shopping-cart"></i></span>
+                    </a>
+                    <div id="cart_data">
+                        <div class="items">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr class="bg-primary text-white">
+                                    <td>Images</td>
+                                    <td>Product name</td>
+                                    <td>QTY</td>
+                                    <td>Price</td>
+                                    <td>#</td>
+                                </tr>
+                                </thead>
+                                <tbody id="loadCart">
+                                <tr class="items-data1">
+                                    <td><img src="/static/images/p1.jpg" width="40"></td>
+                                    <td>Product name</td>
+                                    <td>12 x <input type="number" class="qty" value="1"></td>
+                                    <td>12</td>
+                                    <td>
+                                        <button onclick="del_item(1);" class="btn btn-danger"><i
+                                                class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+
+
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <td colspan="3">Total</td>
+                                    <td colspan="2">1200</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="5"><a href="" class="btn btn-primary">Checkout</a></td>
+                                </tr>
+                                </tfoot>
+                            </table>
+
+
+                        </div>
+
+                    </div>
+
+                    <script>
+
+                    </script>
+
+
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<div class="container-fluid">
+
+
+    <div class="row mt-4">
+        <div class="col-md-2">
+
+            <div class="list-group">
+                <a href="#" class="list-group-item list-group-item-action active">All Cotegery
+                </a>
+                <span id="getCot">
+                </span>
+
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="sdiv">
+                <input type="text" id="searchpro" placeholder="Search for products, brands and more"
+                       class="form-control">
+                <span id="sbtn" onclick="searchProduct()"><i class="fas fa-search"></i></span>
+            </div>
+
+            <div class="row" id="allpro">
+
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="list-group">
+                <a href="#" class="list-group-item list-group-item-action active">Recent Product</a>
+                <a href="#" class="list-group-item list-group-item-action ">Product 1</a>
+                <a href="#" class="list-group-item list-group-item-action">Product 2</a>
+                <a href="#" class="list-group-item list-group-item-action">Product 3</a>
+
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+{% block js%}
+
+<script>
+
+function CartHide(){
+     $("#cart_data").slideToggle();
+  }
+function fetchAllProduct(){
+        $.ajax({
+            url:"http://127.0.0.1:8000/allpro/",
+            success:function(data){
+            $("#allpro").html(data);
+            }
+        });
+}
+
+function fetchAllCot(){
+    $.ajax({
+            url:"http://127.0.0.1:8000/allCat/",
+            success:function(data){
+            $("#getCot").html(data);
+            }
+        });
+}
+
+function searchProduct(){
+    searchpro =$("#searchpro").val();
+    $.ajax({
+        url:"http://127.0.0.1:8000/allpro/",
+        type:"get",
+        data:{searchpro:searchpro},
+        success:function(data){
+
+        $("#allpro").html(data);
+        }
+    });
+ }
+
+ function searchProductByCat(cot_id){
+    $.ajax({
+        url:"http://127.0.0.1:8000/allpro/",
+        type:"get",
+        data:{cot_id:cot_id},
+        success:function(data){
+        $("#allpro").html(data);
+        }
+    });
+
+ }
+
+<!--function fetchAllCat(){-->
+<!--        $.ajax({-->
+<!--            url:"http://127.0.0.1:8000/allCat/",-->
+<!--            success:function(data){-->
+<!--            $("#getCot").html(data);-->
+<!--            }-->
+<!--        });-->
+<!--        }-->
+
+<!--function searchProduct(){-->
+<!--searchKey =$("#searchpro").val();-->
+<!--$.ajax({-->
+<!--    url :"http://127.0.0.1:8000/allpro/",-->
+<!--    type:"get",-->
+<!--    data:{searchKey:searchKey},-->
+<!--    success:function(data){-->
+<!--     $("#allpro").html(data);-->
+<!--    }-->
+
+<!--    });-->
+
+<!--}-->
+
+<!--function seearchByCot(id){-->
+<!--searchKeyByid =id;-->
+<!--alert(id);-->
+<!--$.ajax({-->
+<!--    url :"http://127.0.0.1:8000/allpro/",-->
+<!--    type:"get",-->
+<!--    data:{searchKeyByid:searchKeyByid},-->
+<!--    success:function(data){-->
+<!--     $("#allpro").html(data);-->
+<!--    }-->
+
+<!--    });-->
+
+<!--}-->
+
+
+$(document).ready(function(){
+
+fetchAllProduct();
+fetchAllCot();
+});
+
+
+
+
+
+
+</script>
+{% endblock%}
+
+{% endblock%}
+
+

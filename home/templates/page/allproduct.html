@@ -1,0 +1,23 @@
+{% if pro%}
+
+{% for v in pro%}
+        <div class="col-sm-4">
+            <div class="prod mt-4">
+                <div class="card bg-white">
+                    <div class="img-div"> <img class="card-img-top" src="{{v.image.url}}" alt="{{v.image.url}}" width="100%"></div>
+                    <div class="card-body">
+                        <div class="card-title">{{v.name}} </div>
+                        <div class="pro-price"> Rs.{{v.price}}/ </div>
+                        <div class="pro-date"> {{v.date}} </div><br>
+                        <a href="#Cart" class="btn btn-info" >Add to Cart</a>
+                        <a href="#buy" class="btn btn-primary">Buy No</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        {% endfor%}
+
+{%else%}
+<div class="row pl-4"><span class="text-center"> No Record found !</span></div>
+{% endif%}

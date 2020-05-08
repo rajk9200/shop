@@ -1,0 +1,9 @@
+{% if proC%}
+
+{% for v in proC%}
+<a  onclick="searchProductByCat({{v.id}})" class="list-group-item list-group-item-action">{{v.name}}</a>
+{% endfor%}
+
+{%else%}
+<div class="row p-4"><span class="text-center"> No Record found !</span></div>
+{% endif%}
