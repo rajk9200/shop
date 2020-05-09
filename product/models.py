@@ -32,10 +32,11 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
-
+import random
 def update_slug(sender,instance, **kwargs):
     path =str(instance.name).replace(" ","-")
     path1 =str(path).replace(",","-")
-    instance.slug=str(path1)
+    path2 =path+str(random.randrange(1,88888))
+    instance.slug=str(path2)
 
 pre_save.connect(update_slug,sender=Product)
