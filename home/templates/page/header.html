@@ -1,7 +1,7 @@
 <header class="bg-light">
     <div class="container">
         <nav class="navbar navbar-expand-md navbar-light ">
-            <a href="{% url 'home'%}" class="navbar-brand text-primary">Apna Rewa Apna Bazar</a>
+            <a href="{% url 'homepage'%}" class="navbar-brand text-primary">Apna Rewa Apna Bazar</a>
             <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -10,7 +10,7 @@
 
                 <div class="navbar-nav ml-auto">
                     <a class="nav-item btn btn-primary ">
-                        <span id="showlistbtn" class="text-white" onclick="CartHide()">Cart <i
+                        <span id="showlistbtn" class="text-white" onclick="CartHide()">Cart <span id="cCart">0</span> <i
                                 class="fas fa-shopping-cart"></i></span>
                     </a>
                     <div id="cart_data">
@@ -26,16 +26,7 @@
                                 </tr>
                                 </thead>
                                 <tbody id="loadCart">
-                                <tr class="items-data1">
-                                    <td><img src="/static/images/p1.jpg" width="40"></td>
-                                    <td>Product name</td>
-                                    <td>12 x <input type="number" class="qty" value="1"></td>
-                                    <td>12</td>
-                                    <td>
-                                        <button onclick="del_item(1);" class="btn btn-danger"><i
-                                                class="fas fa-trash"></i></button>
-                                    </td>
-                                </tr>
+
 
 
                                 </tbody>

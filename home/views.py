@@ -7,15 +7,15 @@ def home(request):
     return render(request, 'home.html')
 
 
-def details_view(request,name=None):
-    p =Product.objects.get(name=name)
+def details_view(request,slug=None):
+    p =Product.objects.get(slug=slug)
     data ={
       'pro':p
     }
     return render(request, 'page/details.html',data)
 
-# def checkout(request):
-#     return render(request, 'checkout.html')
+def checkout(request):
+    return render(request, 'checkout.html')
 
 def allProduct(request):
     data=dict()

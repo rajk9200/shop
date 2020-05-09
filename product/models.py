@@ -4,6 +4,7 @@ from django.db import models
 from django.db import models
 # Create your models here.
 from datetime import datetime
+from django.db.models.signals import pre_save
 
 class MainCot(models.Model):
     name = models.CharField(max_length=100)
@@ -31,3 +32,10 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+def update_slug(sender,instance, **kwargs):
+    path =str(instance.name).replace(" ","-")
+    path1 =str(path).replace(",","-")
+    instance.slug=str(path1)
+
+pre_save.connect(update_slug,sender=Product)

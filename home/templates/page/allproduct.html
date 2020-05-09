@@ -1,7 +1,7 @@
 {% if pro%}
 
 {% for v in pro%}
-    <a href="{% url 'details' v.name %}">
+    <a href="{% url 'details' v.slug %}">
         <div class="col-sm-4">
             <div class="prod mt-4">
                 <div class="card bg-white">
@@ -10,7 +10,7 @@
                         <div class="card-title">{{v.name}} </div>
                         <div class="pro-price"> Rs.{{v.price}}/ </div>
                         <div class="pro-date"> {{v.date}} </div><br>
-                        <a href="#Cart" class="btn btn-info" >Add to Cart {{v.pk}}</a>
+                        <a onclick='getToCartProduct({{v.id}},"{{v.image.url}}","{{v.name}}",{{v.price}})' class="btn btn-info text-white" >Add to Cart</a>
                         <a href="#buy" class="btn btn-primary">Buy No {{v.id}}</a>
                     </div>
                 </div>
