@@ -40,3 +40,16 @@ def update_slug(sender,instance, **kwargs):
     instance.slug=str(path2)
 
 pre_save.connect(update_slug,sender=Product)
+
+
+
+
+
+class Cart(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    active =models.BooleanField(default=False)
+    datetime = models.DateTimeField(auto_now=True)
+    count = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.product.name

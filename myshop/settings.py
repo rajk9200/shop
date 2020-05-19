@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'product',
     'home',
     'accounts',
+    'rest_framework',
+    'rapi',
 ]
 
 MIDDLEWARE = [

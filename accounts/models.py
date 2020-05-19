@@ -1,6 +1,11 @@
 from django.db import models
 
-# Create your models here.
+class Profile(models.Model):
+    mobile = models.CharField(max_length=10)
+    name =models.CharField(max_length=100)
 
-# class CProfile(models.Model):
-# # #     name =
+
+
+class MobileVerification(models.Model):
+    mobile = models.CharField(max_length=10)
+    verified =models.BooleanField(default=False)

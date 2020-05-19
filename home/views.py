@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render,HttpResponse,redirect
 
-from product.models import Product,ProCot
+from product.models import Product,ProCot,Cart
 # Create your views here.
 def home(request):
 
@@ -47,6 +47,35 @@ def allCategery(request):
         'proC':pc
     }
     return render(request, 'page/allCat.html', data)
+
+def allCart(request):
+    if request.is_ajax():
+        pro_id = request.GET.get('pid', 0)
+        pro_id =int(pro_id)
+        if not pro_id==0:
+            print(pro_id)
+            pro_obj =Product.objects.get(id=pro_id)
+            cart_match =Cart.objects.filter(product=pro_obj)
+            if cart_match:
+                count =int((cart_match[0].count))+1
+                Cart.objects.filter(product=pro_obj).update(count=count)
+            else:
+                Cart.objects.create(product=pro_obj)
+    pcart = Cart.objects.filter().order_by('-id')[0:5]
+    pcount = Cart.objects.count()
+    data = {
+        'pCart': pcart,
+        'pcount':pcount
+    }
+    return render(request, 'page/allCart.html', data)
+
+def deleteCart(request):
+    if request.is_ajax():
+        pro_id = request.GET.get('pid', 0)
+
+        pcart = Cart.objects.filter(id=pro_id)
+        pcart[0].delete()
+    return HttpResponse('delete')
 
 
 

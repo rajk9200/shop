@@ -107,52 +107,97 @@ function searchProduct(){
 
  }
 
-ProductsList =[];
-var Item =function(id,name,image,price,count){
-    this.id =id;
-    this.name =name;
-    this.image =image;
-    this.price =price;
-    this.count =count;
-};
+ function getToCartProduct(pid){
 
-function addItemToProduct(id,name,image,price,count){
-    for (var i in ProductsList ){
-    //debugger;
-        if (ProductsList[i].id===id){
-            count =count+1;
-            ProductsList[i].count=count;
-            return;
+    $.ajax({
+        url:"http://127.0.0.1:8000/allCart/",
+        type:"get",
+        data:{pid:pid},
+        success:function(data){
+
+        $("#loadCart").html(data);
+        //$("#cCart").html(data);
         }
+    });
 
-    }
-var item =new Item(id,name,image,price,count);
-
-ProductsList.push(item);
-
-localStorage.setItem("products", JSON.stringify(ProductsList));
 }
 
-function getToCartProduct(pid,pimg,pname,pprice){
+ function removeCartProduct(pid){
+
+    $.ajax({
+        url:"http://127.0.0.1:8000/deleteCart/",
+        type:"get",
+        data:{pid:pid},
+        success:function(data){
+        getToCartProduct(0);
+        }
+    });
+
+}
+
+function maltiCartProduct(obj){
     debugger;
-    addItemToProduct(pid,pname,pimg,pprice,1);
-    dd =console.log(ProductsList);
-    var storedproducts = JSON.parse(localStorage.getItem("products"));
-    for (i =0; i<storedproducts.length;i++){
-        cartdata =storedproducts[i].name+"-"+storedproducts[i].price;
-        html_cart ='<tr class="items-data1"><td><img src="'+storedproducts[i].image+'" width="40"></td><td>'+storedproducts[i].name+'</td><td>'+storedproducts[i].price+' x <input type="number" class="qty" value="'+storedproducts[i].count+'"></td><td>12</td><td><button class="btn btn-danger"><i class="fas fa-trash"></i></button></td></tr>';
-        $("#loadCart").append(html_cart);
-        $("#cCart").html(storedproducts.length);
 
-        console.log(cartdata);
-    }
+    var nextTD = $(obj).closest('td').html();
+    alert(nextTD);
+
+
 
 }
+
+<!--ProductsList =[];-->
+<!--var Item =function(id,name,image,price,count){-->
+<!--    this.id =id;-->
+<!--    this.name =name;-->
+<!--    this.image =image;-->
+<!--    this.price =price;-->
+<!--    this.count =count;-->
+<!--};-->
+
+<!--function addItemToProduct(id,name,image,price,count){-->
+<!--    for (var i in ProductsList ){-->
+<!--    //debugger;-->
+<!--        if (ProductsList[i].id===id){-->
+<!--            count =count+1;-->
+<!--            ProductsList[i].count=count;-->
+<!--            return;-->
+<!--        }-->
+
+<!--    }-->
+<!--var item =new Item(id,name,image,price,count);-->
+
+<!--ProductsList.push(item);-->
+
+<!--localStorage.setItem("products", JSON.stringify(ProductsList));-->
+<!--}-->
+
+<!--function getToCartProduct(pid,pimg,pname,pprice){-->
+<!--    debugger;-->
+<!--    addItemToProduct(pid,pname,pimg,pprice,1);-->
+<!--    dd =console.log(ProductsList);-->
+<!--    var storedproducts = JSON.parse(localStorage.getItem("products"));-->
+<!--    for (i =0; i<storedproducts.length;i++){-->
+<!--        cartdata =storedproducts[i].name+"-"+storedproducts[i].price;-->
+<!--        html_cart ='<tr class="items-data1"><td><img src="'+storedproducts[i].image+'" width="40"></td><td>'+storedproducts[i].name+'</td><td>'+storedproducts[i].price+' x <input type="number" class="qty" value="'+storedproducts[i].count+'"></td><td>12</td><td><button class="btn btn-danger"><i class="fas fa-trash"></i></button></td></tr>';-->
+<!--        $("#loadCart").append(html_cart);-->
+<!--        $("#cCart").html(storedproducts.length);-->
+
+<!--        console.log(cartdata);-->
+<!--    }-->
+
+<!--}-->
+
+
+
 
 $(document).ready(function(){
 
     fetchAllProduct();
     fetchAllCot();
+    getToCartProduct(0);
+
+
+
 });
 
 
